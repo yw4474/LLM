@@ -1,50 +1,32 @@
-# Applied Generative AI Project – Helper Library + FastAPI + Docker
+# GenAI API (CNN + Fine-tuned GPT-2)
 
-This repository contains a reusable PyTorch helper library (`helper_lib`) and a FastAPI API server (under `app/`) that expose several generative models:
+This repository contains a FastAPI project that integrates:
+1) A CNN image classifier (for CIFAR-10 style inference by image path).
+2) A fine-tuned GPT-2 LLM on the SQuAD dataset.
+3) A new API endpoint `/generate_with_llm` added based on Module 9 requirements.
 
-- CNN classifier (specCNN for CIFAR-10)
-- GAN image generator (MNIST)
-- Diffusion image generator (MNIST)
-- Energy-Based Model (EBM) image generator (MNIST)
-
-The project is designed to satisfy the course requirements:
-- The API can be successfully queried to run the model implemented for the assignment.
-- The submission includes a Docker deployment that runs a FastAPI server with the added API endpoints on the instructor’s machine.
+The project is Dockerized so the instructor can build and run the server on their machine.
 
 ---
 
-## 1. Project Structure
+## Project Structure
 
 ```text
 .
 ├── app/
 │   ├── main.py
 │   ├── api/
-│   │   ├── __init__.py
 │   │   └── router.py
-│   └── services/
-│       ├── __init__.py
-│       ├── text_gen_service.py        # simple text generator (Module 3)
-│       ├── image_classifier.py        # CNN classifier
-│       ├── gan_service.py             # GAN generator service
-│       ├── diffusion_service.py       # Diffusion generator service
-│       └── ebm_service.py             # EBM generator service
-├── helper_lib/
-│   ├── __init__.py
-│   ├── data_loader.py
-│   ├── evaluator.py
-│   ├── generator.py
-│   ├── model.py
-│   ├── trainer.py
-│   └── utils.py
+│   ├── routers/
+│   │   └── text_generation.py
+│   ├── services/
+│   │   └── llm_service.py
+│   └── image_classifier.py
 ├── scripts/
-│   ├── train_gan_mnist.py
-│   └── test_ebm.py
-├── weights/                           # model weights (if available)
-│   ├── gan_mnist_gen.pt              # GAN generator (MNIST)
-│   ├── speccnn_cifar10.pt            # CNN classifier (CIFAR-10, may be partially trained)
-│   ├── diffusion_mnist.pt            # (optional) trained diffusion model
-│   └── ebm_mnist.pt                  # (optional) trained EBM model
+│   └── train_gpt2_squad.py
+├── weights/
+│   └── gpt2_squad_ft/   (generated after training)
 ├── requirements.txt
 ├── Dockerfile
+├── pyproject.toml
 └── README.md
