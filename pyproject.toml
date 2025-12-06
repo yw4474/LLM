@@ -1,0 +1,8 @@
+[project]
+name = "sps-genai"
+version = "0.1.0"
+description = "Applied Generative AI assignments"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["app", "scripts", "helper_lib"]
